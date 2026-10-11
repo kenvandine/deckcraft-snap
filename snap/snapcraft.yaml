@@ -1,0 +1,74 @@
+name: deckcraft
+title: DeckCraft
+base: core24
+version: '0.5.0'
+summary: Presentation and slide show app
+description: |
+  DeckCraft is an open-source, native presentation app for creating and presenting slide decks, with support for PowerPoint (PPTX) files.
+
+  DeckCraft is part of the open-source ArtCraft "Crafting Apps": a native Rust
+  application that runs locally on your own files and can be driven from a CLI,
+  a JSON control channel or an MCP server.
+
+  This snap repackages the official upstream Linux release. The headless
+  command line tool is available as deckcraft.cli.
+license: MIT OR Apache-2.0
+website: https://getartcraft.com/apps/slidecraft
+source-code: https://github.com/storytold/deckcraft
+issues: https://github.com/storytold/deckcraft/issues
+contact: https://github.com/kenvandine/deckcraft-snap/issues
+icon: snap/gui/deckcraft.png
+grade: stable
+confinement: strict
+
+platforms:
+  amd64:
+  arm64:
+
+apps:
+  deckcraft:
+    command: bin/deckcraft
+    extensions: [gnome]
+    common-id: ai.storyteller.deckcraft
+    plugs:
+      - audio-playback
+      - home
+      - network
+      - network-bind
+      - opengl
+      - removable-media
+  cli:
+    command: bin/deckcraft-cli
+    extensions: [gnome]
+    plugs:
+      - home
+      - network
+      - network-bind
+      - removable-media
+
+parts:
+  deckcraft:
+    plugin: nil
+    build-packages:
+      - ca-certificates
+      - curl
+    stage-packages:
+      - libvulkan1
+      - libxkbcommon-x11-0
+    override-pull: |
+      set -eu
+      case "$CRAFT_ARCH_BUILD_FOR" in
+        amd64) arch=x86_64 ;;
+        arm64) arch=aarch64 ;;
+        *) echo "unsupported architecture: $CRAFT_ARCH_BUILD_FOR" >&2; exit 1 ;;
+      esac
+      name="deckcraft-${CRAFT_PROJECT_VERSION}-linux-${arch}"
+      url="https://github.com/storytold/deckcraft/releases/download/v${CRAFT_PROJECT_VERSION}"
+      curl -fsSL --retry 3 -o "${name}.tar.gz" "${url}/${name}.tar.gz"
+      curl -fsSL --retry 3 -o SHA256SUMS.txt "${url}/SHA256SUMS.txt"
+      grep -E "[ *]${name}\.tar\.gz\$" SHA256SUMS.txt | sha256sum -c -
+      tar xzf "${name}.tar.gz" --strip-components=1
+      rm -f "${name}.tar.gz" SHA256SUMS.txt
+    override-build: |
+      set -eu
+      cp -a bin share "$CRAFT_PART_INSTALL/"

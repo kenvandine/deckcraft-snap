@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=DeckCraft
+GenericName=Presentation
+Comment=Create and present slide decks
+Exec=deckcraft %F
+Icon=${SNAP}/meta/gui/deckcraft.png
+Terminal=false
+StartupNotify=true
+StartupWMClass=ai.storyteller.deckcraft
+Categories=Office;Presentation;
+Keywords=presentation;slides;slide show;deck;pptx;keynote;powerpoint;
+MimeType=application/x-deckcraft;application/vnd.openxmlformats-officedocument.presentationml.presentation;application/vnd.openxmlformats-officedocument.presentationml.template;application/vnd.openxmlformats-officedocument.presentationml.slideshow;
