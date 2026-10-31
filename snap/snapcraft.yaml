@@ -1,7 +1,7 @@
 name: deckcraft
 title: DeckCraft
 base: core24
-version: '0.12.0'
+version: '0.13.1'
 summary: Presentation and slide show app
 description: |
   DeckCraft is an open-source, native presentation app for creating and presenting slide decks, with support for PowerPoint (PPTX) files.
