@@ -34,6 +34,7 @@ apps:
       - bin/alsa-launch
     plugs:
       - audio-playback
+      - cups-control
       - home
       - network
       - network-bind
