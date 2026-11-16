@@ -1,6 +1,6 @@
 # deckcraft-snap
 
-Snap packaging for [DeckCraft](https://getartcraft.com/apps/slidecraft), a presentation and slide show app,
+Snap packaging for [DeckCraft](https://getartcraft.com/apps/deckcraft), a presentation and slide show app,
 from the open-source [ArtCraft](https://getartcraft.com/) Crafting Apps.
 Upstream: <https://github.com/storytold/deckcraft>.
 
